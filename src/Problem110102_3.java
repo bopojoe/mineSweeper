@@ -112,11 +112,14 @@ public class Problem110102_3 {
 
                             }
                             if (y == w && y > 0) {
+                                helperH1(test, i - 1, j);
+                                helperH1(test, i - 1, j-1);
+                                helperH1(test, i , j-1);
+                                helperH1(test, i + 1, j);
+                                helperH1(test, i +1, j-1);
 
                             }
-                            if (y == w && y == 0) {
 
-                            }
 
                             }else if(x<h&&x==0) {
 
@@ -174,7 +177,37 @@ public class Problem110102_3 {
 
         //System.out.println(k);
     }
+private void helper2(char[][] array, int i, int j){
+    if (y < w && y > 0) {
+        helperH1(test, i - 1, j);
+        helperH1(test, i - 1, j - 1);
+        helperH1(test, i - 1, j + 1);
 
+        helperH1(test, i, j - 1);
+        helperH1(test, i, j + 1);
+
+        helperH1(test, i + 1, j);
+        helperH1(test, i + 1, j - 1);
+        test = helperH1(test, i + 1, j + 1);
+    }
+    if (y < w && y == 0) {
+        helperH1(test, i - 1, j);
+        helperH1(test, i - 1, j+1);
+        helperH1(test, i , j+1);
+        helperH1(test, i +1, j);
+        helperH1(test, i + 1, j+1);
+
+
+    }
+    if (y == w && y > 0) {
+        helperH1(test, i - 1, j);
+        helperH1(test, i - 1, j-1);
+        helperH1(test, i , j-1);
+        helperH1(test, i + 1, j);
+        helperH1(test, i +1, j-1);
+
+    }
+}
 
     private char[][] helperH1(char[][] array, int x1, int y1){
         if (!checkBomb(array, x1, y1)) {
