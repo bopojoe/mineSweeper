@@ -1,48 +1,51 @@
 /**
- * @author James O'Rourke_20074556 on 17/01/2018
+ * @author James O'Rourke_20074556 on 16/01/2018
  */
 
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
 public class Problem110102_3 {
     Scanner input;
-    private int height=1;
-    private int width;
     char[][] test;
+    private int height = 1;
+    private int width;
     private Table staticTable;
     private ArrayList<Table> list = new ArrayList<>();
 
     private int count = 0;
-
-    public Problem110102_3(){
+//builds scanner and runs program
+    public Problem110102_3() {
         input = new Scanner(System.in);
         run();
     }
 
-    private void run(){
-        while(height!=0){
+    public static void main(String[] args) {
+        @SuppressWarnings("unused")
+        Problem110102_3 app = new Problem110102_3();
+    }
+//calls input and adds input to arrayList
+//basically the guts of the program
+    private void run() {
+        while (height != 0) {
             input();
-            list.add(count,staticTable);
+            list.add(count, staticTable);
             count++;
 
         }
-        printOut();
+
+        zeroArray();
         changeMarkers();
         printOut();
         exitApp();
     }
-    private void exitApp() {
-
-        System.out.println("Exiting App");
-        System.exit(0);
-    }
-
-    private void input(){
+    //takes input numbers and makes a 2D array to store the field
+    private void input() {
         String size = input.nextLine();
-        height = Integer.parseInt(""+size.charAt(0));
-        width = Integer.parseInt(""+size.charAt(2));
-        if(height!=0) {
+        height = Integer.parseInt("" + size.charAt(0));
+        width = Integer.parseInt("" + size.charAt(2));
+        if (height != 0) {
             Table tableOne = new Table();
 
             tableOne.table = new char[height][width];
@@ -50,7 +53,7 @@ public class Problem110102_3 {
             readMatrix(height, width);
         }
     }
-
+//method for reading in the field to build the 2D array
     private void readMatrix(int height, int width) {
         String[] lines;
         lines = new String[height];
@@ -69,26 +72,27 @@ public class Problem110102_3 {
 
         }
     }
-
+//method for adding the numbers to the field
+//checks the position of bombs found and depending on position adds 1 to all positions available
+//does this for each field in the arrayList
     private void changeMarkers() {
         int k = 0;
-        while (count-1 > k) {
+        while (count - 1 > k) {
             Table table = list.get(k);
             test = table.getTable();
-            int h = test.length;
+            int h = test.length - 1;
 
-            int w = test[0].length;
+            int w = test[0].length - 1;
 
             for (int i = 0; i < test.length; i++) {
 
                 for (int j = 0; j < test[i].length; j++) {
                     char c = '*';
-                    int zero = 0;
-                    int x=0;
-                    int y=0;
-                    if(c == test[i][j]){
-                        x=i;
-                        y=j;
+                    int x = 0;
+                    int y = 0;
+                    if (c == test[i][j]) {
+                        x = i;
+                        y = j;
                         if ((x < h && x > 0)) {
                             if (y < w && y > 0) {
                                 helperH1(test, i - 1, j);
@@ -102,119 +106,90 @@ public class Problem110102_3 {
                                 helperH1(test, i + 1, j - 1);
                                 test = helperH1(test, i + 1, j + 1);
                             }
-                            if (y < w && y == 0) {
+                            if (y == 0) {
                                 helperH1(test, i - 1, j);
-                                helperH1(test, i - 1, j+1);
-                                helperH1(test, i , j+1);
-                                helperH1(test, i +1, j);
-                                helperH1(test, i + 1, j+1);
-
-
-                            }
-                            if (y == w && y > 0) {
-                                helperH1(test, i - 1, j);
-                                helperH1(test, i - 1, j-1);
-                                helperH1(test, i , j-1);
+                                helperH1(test, i - 1, j + 1);
+                                helperH1(test, i, j + 1);
                                 helperH1(test, i + 1, j);
-                                helperH1(test, i +1, j-1);
+                                test = helperH1(test, i + 1, j + 1);
+
+
+                            }
+                            if (y == w) {
+                                helperH1(test, i - 1, j);
+                                helperH1(test, i - 1, j - 1);
+                                helperH1(test, i, j - 1);
+                                helperH1(test, i + 1, j);
+                                test = helperH1(test, i + 1, j - 1);
 
                             }
 
 
-                            }else if(x<h&&x==0) {
+                        } else if (x == 0) {
 
-                            if ((x < h && x > 0)) {
-                                if (y < w && y > 0) {
-
-                                }
-                                if (y < w && y > 0) {
-
-                                }
-                                if (y == w && y > 0) {
-
-                                }
-                                if (y == w && y == 0) {
-
-                                }
-
-
-                        }else if(x==h&&x>0) {
-                                if (y < w && y > 0) {
-
-                                }
-                                if (y < w && y > 0) {
-
-                                }
-                                if (y == w && y > 0) {
-
-                                }
-                                if (y == w && y == 0) {
-
-                                }
-                            }
-
-                        }else if(x==h&&x==0) {
                             if (y < w && y > 0) {
+                                helperH1(test, i, j - 1);
+                                helperH1(test, i, j + 1);
+                                helperH1(test, i + 1, j);
+                                helperH1(test, i + 1, j - 1);
+                                test = helperH1(test, i + 1, j + 1);
+
 
                             }
+                            if (y == w) {
+                                helperH1(test, i + 1, j);
+                                helperH1(test, i + 1, j - 1);
+                                test = helperH1(test, i, j - 1);
+
+                            }
+                            if (y == 0) {
+                                helperH1(test, i + 1, j);
+                                helperH1(test, i + 1, j + 1);
+                                test = helperH1(test, i, j + 1);
+
+                            }
+
+
+                        } else if (x == h) {
                             if (y < w && y > 0) {
+                                helperH1(test, i, j - 1);
+                                helperH1(test, i, j + 1);
+                                helperH1(test, i - 1, j);
+                                helperH1(test, i - 1, j - 1);
+                                test = helperH1(test, i - 1, j + 1);
 
                             }
-                            if (y == w && y > 0) {
+
+                            if (y == w) {
+                                helperH1(test, i - 1, j);
+                                helperH1(test, i - 1, j - 1);
+                                test = helperH1(test, i, j - 1);
 
                             }
-                            if (y == w && y == 0) {
+                            if (y == 0) {
+                                helperH1(test, i - 1, j);
+                                helperH1(test, i - 1, j + 1);
+                                test = helperH1(test, i, j + 1);
 
                             }
-
                         }
 
-
                     }
+
+
                 }
-            }k++;
+            }
+            k++;
         }
-
-        //System.out.println(k);
     }
-private void helper2(char[][] array, int i, int j){
-    if (y < w && y > 0) {
-        helperH1(test, i - 1, j);
-        helperH1(test, i - 1, j - 1);
-        helperH1(test, i - 1, j + 1);
 
-        helperH1(test, i, j - 1);
-        helperH1(test, i, j + 1);
-
-        helperH1(test, i + 1, j);
-        helperH1(test, i + 1, j - 1);
-        test = helperH1(test, i + 1, j + 1);
-    }
-    if (y < w && y == 0) {
-        helperH1(test, i - 1, j);
-        helperH1(test, i - 1, j+1);
-        helperH1(test, i , j+1);
-        helperH1(test, i +1, j);
-        helperH1(test, i + 1, j+1);
-
-
-    }
-    if (y == w && y > 0) {
-        helperH1(test, i - 1, j);
-        helperH1(test, i - 1, j-1);
-        helperH1(test, i , j-1);
-        helperH1(test, i + 1, j);
-        helperH1(test, i +1, j-1);
-
-    }
-}
-
-    private char[][] helperH1(char[][] array, int x1, int y1){
+//this is a helper class for the last class as its called multiple times
+    private char[][] helperH1(char[][] array, int x1, int y1) {
         if (!checkBomb(array, x1, y1)) {
             String str = "" + array[x1][y1];
             if (parseCheck(str)) {
                 int value = Integer.parseInt(str);
-                value = value+49;
+                value = value + 49;
                 array[x1][y1] = (char) value;
                 return array;
             } else {
@@ -223,17 +198,51 @@ private void helper2(char[][] array, int i, int j){
         }
         return array;
     }
-    private boolean checkBomb(char[][] array, int xPos, int yPos){
+//this is the method to check the position for a bomb
+    private boolean checkBomb(char[][] array, int xPos, int yPos) {
         char c = '*';
 
-        if(c == array[xPos][yPos]){
+        if (c == array[xPos][yPos]) {
             return true;
-        }else{return false;}
+        } else {
+            return false;
+        }
+
+
+    }
+//this method was added after a bug was found
+//so now at the start after the 2D array is made
+//the array is zeroed out apart from the bombs
+    private void zeroArray() {
+        int k = 0;
+        while (count - 1 > k) {
+            Table table = list.get(k);
+            test = table.getTable();
+            for (int i = 0; i < test.length; i++) {
+                for (int j = 0; j < test[i].length; j++) {
+                    test = checkBombZero(test, i, j);
+                }
+
+            }
+            k++;
+        }
+
+    }
+//this method is a helper for the last it checks position for bombs and changes '.'to '0'(48 in unicode)
+    private char[][] checkBombZero(char[][] array, int xPos, int yPos) {
+        char c = '*';
+
+        if (c == array[xPos][yPos]) {
+            return array;
+        } else {
+            array[xPos][yPos] = (char) 48;
+            return array;
+        }
 
 
     }
 
-
+//this method is used to check if what is being taken form the array is parseable
     private boolean parseCheck(String test) {
 
         boolean parseable = true;
@@ -245,18 +254,13 @@ private void helper2(char[][] array, int i, int j){
         return parseable;
     }
 
-
-
-
-
-
-
+//method to cycle through the 2D array and print what is found
     private void printOut() {
         int k = 0;
-        while (count-1 > k) {
+        while (count - 1 > k) {
             Table table = list.get(k);
             test = table.getTable();
-            System.out.println("Field #"+(k+1));
+            System.out.println("Field #" + (k + 1));
             for (int i = 0; i < test.length; i++) {
                 for (int j = 0; j < test[i].length; j++) {
                     System.out.print(test[i][j] + " ");
@@ -267,18 +271,24 @@ private void helper2(char[][] array, int i, int j){
         }
 
     }
+//method to nicely exit the app
+    private void exitApp() {
 
+        System.out.println("Exiting App");
+        System.exit(0);
+    }
 
+//class to make an object of to store multiple 2D arrays in an ArrayList
     private class Table {
         protected char[][] table;
 
-        public char[][] getTable() {
-            return table;
+        public Table() {
+
+
         }
 
-        public Table(){
-
-
+        public char[][] getTable() {
+            return table;
         }
 
 
