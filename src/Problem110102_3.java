@@ -89,23 +89,80 @@ public class Problem110102_3 {
                     if(c == test[i][j]){
                         x=i;
                         y=j;
-                        if((x<h&&x>0)&&(y<w && y>0)){               //Check for eight
+                        if ((x < h && x > 0)) {
+                            if (y < w && y > 0) {
+                                helperH1(test, i - 1, j);
+                                helperH1(test, i - 1, j - 1);
+                                helperH1(test, i - 1, j + 1);
 
-                                        helperH1(test,i-1, j);
-                                        helperH1(test,i-1,j-1);
-                                        helperH1(test,i-1,j+1);
+                                helperH1(test, i, j - 1);
+                                helperH1(test, i, j + 1);
 
-                                        helperH1(test,i,j-1);
-                                        helperH1(test,i,j+1);
+                                helperH1(test, i + 1, j);
+                                helperH1(test, i + 1, j - 1);
+                                test = helperH1(test, i + 1, j + 1);
+                            }
+                            if (y < w && y == 0) {
+                                helperH1(test, i - 1, j);
+                                helperH1(test, i - 1, j+1);
+                                helperH1(test, i , j+1);
+                                helperH1(test, i +1, j);
+                                helperH1(test, i + 1, j+1);
 
-                                        helperH1(test,i+1, j);
-                                        helperH1(test,i+1,j-1);
-                                        test = helperH1(test,i+1,j+1);
 
-                            }else if((x<h&&x==0)&&(y<w && y>0)) {
+                            }
+                            if (y == w && y > 0) {
+
+                            }
+                            if (y == w && y == 0) {
+
+                            }
+
+                            }else if(x<h&&x==0) {
+
+                            if ((x < h && x > 0)) {
+                                if (y < w && y > 0) {
+
+                                }
+                                if (y < w && y > 0) {
+
+                                }
+                                if (y == w && y > 0) {
+
+                                }
+                                if (y == w && y == 0) {
+
+                                }
 
 
-                        }else if((x<h&&x==0)&&(y<w && y==0)) {
+                        }else if(x==h&&x>0) {
+                                if (y < w && y > 0) {
+
+                                }
+                                if (y < w && y > 0) {
+
+                                }
+                                if (y == w && y > 0) {
+
+                                }
+                                if (y == w && y == 0) {
+
+                                }
+                            }
+
+                        }else if(x==h&&x==0) {
+                            if (y < w && y > 0) {
+
+                            }
+                            if (y < w && y > 0) {
+
+                            }
+                            if (y == w && y > 0) {
+
+                            }
+                            if (y == w && y == 0) {
+
+                            }
 
                         }
 
@@ -124,7 +181,7 @@ public class Problem110102_3 {
             String str = "" + array[x1][y1];
             if (parseCheck(str)) {
                 int value = Integer.parseInt(str);
-                value++;
+                value = value+49;
                 array[x1][y1] = (char) value;
                 return array;
             } else {
