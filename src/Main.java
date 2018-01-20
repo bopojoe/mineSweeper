@@ -7,7 +7,7 @@ public class Main {
 
     /*public static void main(String[] args) {
         @SuppressWarnings("unused")
-        Problem110102_3 app = new Problem110102_3();
+        Problem110102 app = new Problem110102();
     }*/
 
 
