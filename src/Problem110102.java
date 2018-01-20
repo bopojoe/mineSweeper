@@ -64,7 +64,7 @@ public class Problem110102 {
             tableOne.table = new char[height][width];
             staticTable = tableOne;
             readMatrix(height, width);
-        }
+        }else{exitApp();}
     }
 
     //method for reading in the field to build the 2D array
