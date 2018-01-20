@@ -1,11 +1,16 @@
 
 /**
- * @file Problem110102_old
+ * @file Problem110102
  * @author James O'Rourke_20074556
- * @assignment
- * @brief ONE LINE SUMMARY OF CONTENTS
+ * @assignment Problem110102 Assignment
+ * @brief
+ * This application takes inputs and converts them into a Minesweeper Field
  *
- * @notes DESCRIPTION OF CODE, BUGS, FEATURES, ISSUES, ETC.
+ * @notes
+ * The 300 odd lines that follow run through the process of converting inputs to characters,
+ * putting them into a 2D array and then checking which locations hold the "*"
+ * There is an internal class which i use to make objects and store in the Arraylist
+ *
  */
 
 import java.util.ArrayList;
@@ -54,12 +59,10 @@ public class Problem110102 {
         String[] dimensions = size.split(" ");
         height = Integer.parseInt(dimensions[0]);
         width = Integer.parseInt(dimensions[1]);
-        if (height != 0 || width != 0) {
+        if ((height != 0 || width != 0)&&(height <= 100 && width <= 100)) {
             Table tableOne = new Table();
-
             tableOne.table = new char[height][width];
             staticTable = tableOne;
-            System.out.println("table" + staticTable.table.length + " " + staticTable.table[0].length);
             readMatrix(height, width);
         }
     }
@@ -68,9 +71,6 @@ public class Problem110102 {
     private void readMatrix(int height, int width) {
         String[] lines;
         lines = new String[height];
-        System.out.println(lines.length);
-
-
         for (int i = 0; i < height; i++) {
 
             lines[i] = input.nextLine();
@@ -283,6 +283,7 @@ public class Problem110102 {
                 }
                 System.out.println("");
             }
+            System.out.println("");
             k++;
         }
 
